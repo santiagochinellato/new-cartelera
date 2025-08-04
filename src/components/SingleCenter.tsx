@@ -22,7 +22,6 @@ const formatProfessionalName = (professional: Professional): string => {
   const nameParts = professional.nombre.split(" ");
 
   if (nameParts.length >= 2) {
-    const firstName = nameParts[0];
     const lastName = nameParts.slice(1).join(" ");
     return `${correctTitle} ${lastName}`;
   }

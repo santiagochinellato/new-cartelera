@@ -1,7 +1,7 @@
 import type { Professional } from "../types";
 
 // Importar todas las imágenes de profesionales
-import imgCarbello from "../assets/images/fotos-fondo-modificado/carbello.jpg";
+// import imgCarbello from "../assets/images/fotos-fondo-modificado/carbello.jpg";
 import imgCastello from "../assets/images/fotos-fondo-modificado/castello.jpg";
 import imgDonoso from "../assets/images/fotos-fondo-modificado/donoso.jpg";
 import imgLoza from "../assets/images/fotos-fondo-modificado/loza.jpg";
