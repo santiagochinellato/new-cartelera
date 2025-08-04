@@ -1,200 +1,118 @@
-import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import React from "react";
 import type { Professional } from "../types";
-import {
-  groupProfessionalsBySpecialty,
-  filterProfessionals,
-  getUniqueSpecialties,
-} from "../utils/groupProfessionals";
-import SpecialtySection from "./SpecialtySection";
+import { cemmProfesionalesData } from "../data/cemmProfesionalesData";
 import "./ProfessionalBoard.scss";
 
-interface ProfessionalBoardProps {
-  professionals: Professional[];
-}
+// Función para generar el título correcto basado en género
+const generateCorrectTitle = (professional: Professional): string => {
+  if (professional.titulo === "Dr." && professional.genero === "femenino") {
+    return "Dra.";
+  }
+  return professional.titulo;
+};
 
-const ProfessionalBoard: React.FC<ProfessionalBoardProps> = ({
-  professionals,
-}) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("");
+// Función para formatear el nombre como "Título Apellido, Nombre"
+const formatProfessionalName = (professional: Professional): string => {
+  const correctTitle = generateCorrectTitle(professional);
+  const nameParts = professional.nombre.split(" ");
 
-  // Obtener especialidades únicas para el filtro
-  const specialties = useMemo(
-    () => getUniqueSpecialties(professionals),
-    [professionals]
+  if (nameParts.length >= 2) {
+    const firstName = nameParts[0];
+    const lastName = nameParts.slice(1).join(" ");
+    return `${correctTitle} ${lastName}, ${firstName}`;
+  }
+
+  return `${correctTitle} ${professional.nombre}`;
+};
+
+// Función para agrupar profesionales por especialidad
+const groupProfessionalsBySpecialty = (professionals: Professional[]) => {
+  const grouped: Record<string, Professional[]> = {};
+
+  professionals.forEach((prof) => {
+    const key = prof.especialidad;
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(prof);
+  });
+
+  const sorted = Object.entries(grouped)
+    .sort(([a], [b]) => a.localeCompare(b, "es", { sensitivity: "base" }))
+    .map(([especialidad, profesionales]) => ({
+      especialidad,
+      profesionales: profesionales.sort((a, b) =>
+        a.nombre.localeCompare(b.nombre, "es", { sensitivity: "base" })
+      ),
+    }));
+
+  return sorted;
+};
+
+const ProfessionalBoard: React.FC = () => {
+  const groupedProfessionals = groupProfessionalsBySpecialty(
+    cemmProfesionalesData
   );
-
-  // Filtrar profesionales basado en búsqueda y especialidad seleccionada
-  const filteredProfessionals = useMemo(() => {
-    let filtered = professionals;
-
-    // Filtrar por especialidad si hay una seleccionada
-    if (selectedSpecialty) {
-      filtered = filtered.filter((p) => p.especialidad === selectedSpecialty);
-    }
-
-    // Filtrar por término de búsqueda
-    if (searchTerm) {
-      filtered = filterProfessionals(filtered, searchTerm);
-    }
-
-    return filtered;
-  }, [professionals, searchTerm, selectedSpecialty]);
-
-  // Agrupar profesionales filtrados por especialidad
-  const groupedProfessionals = useMemo(
-    () => groupProfessionalsBySpecialty(filteredProfessionals),
-    [filteredProfessionals]
-  );
-
-  const headerVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  const filtersVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, delay: 0.2 },
-    },
-  };
-
-  const contentVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-        delay: 0.4,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const clearFilters = () => {
-    setSearchTerm("");
-    setSelectedSpecialty("");
-  };
 
   return (
     <div className="professional-board">
-      <motion.header
-        className="professional-board__header"
-        variants={headerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="container">
-          <h1 className="professional-board__title">
-            Cartelera de Profesionales CEMM
-          </h1>
-          <p className="professional-board__subtitle">
-            Encuentra a nuestros especialistas organizados por área médica
-          </p>
-        </div>
-      </motion.header>
-
-      <motion.div
-        className="professional-board__filters"
-        variants={filtersVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="container">
-          <div className="filters">
-            <div className="filters__search">
-              <input
-                type="text"
-                placeholder="Buscar por nombre, especialidad o matrícula..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="filters__search-input"
-              />
-            </div>
-
-            <div className="filters__specialty">
-              <select
-                value={selectedSpecialty}
-                onChange={(e) => setSelectedSpecialty(e.target.value)}
-                className="filters__specialty-select"
-              >
-                <option value="">Todas las especialidades</option>
-                {specialties.map((specialty) => (
-                  <option key={specialty} value={specialty}>
-                    {specialty}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {(searchTerm || selectedSpecialty) && (
-              <motion.button
-                className="filters__clear"
-                onClick={clearFilters}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Limpiar filtros
-              </motion.button>
-            )}
+      {/* Header */}
+      <header className="professional-board__header">
+        <div className="professional-board__logo">
+          <img
+            src="/Cemm.png"
+            alt="CEMM - Centro Médico"
+            className="professional-board__logo-image"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = "none";
+              const fallback = target.nextElementSibling as HTMLElement;
+              if (fallback) fallback.style.display = "block";
+            }}
+          />
+          <div
+            className="professional-board__logo-fallback"
+            style={{ display: "none" }}
+          >
+            CEMM
           </div>
         </div>
-      </motion.div>
+        <div className="professional-board__info">
+          <div className="professional-board__info-text">
+            Morales 645 1° Piso
+          </div>
+          <div className="professional-board__info-text">
+            Tél: +54 294 4890837 / 154235666
+          </div>
+          <div className="professional-board__info-text">
+            turnos@consultoriosmorales.com.ar
+          </div>
+        </div>
+      </header>
 
-      <motion.main
-        className="professional-board__content"
-        variants={contentVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <div className="container">
-          {groupedProfessionals.length === 0 ? (
-            <motion.div
-              className="professional-board__no-results"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+      {/* Grid de especialidades */}
+      <main className="professional-board__main">
+        <div className="professional-board__grid">
+          {groupedProfessionals.map((specialtyGroup) => (
+            <div
+              key={specialtyGroup.especialidad}
+              className="specialty-section"
             >
-              <h3>No se encontraron profesionales</h3>
-              <p>Intenta ajustar los filtros de búsqueda</p>
-            </motion.div>
-          ) : (
-            <div className="professional-board__sections">
-              {groupedProfessionals.map((specialtyGroup, index) => (
-                <SpecialtySection
-                  key={specialtyGroup.especialidad}
-                  specialtyGroup={specialtyGroup}
-                  sectionIndex={index}
-                />
-              ))}
+              <h2 className="specialty-section__title">
+                {specialtyGroup.especialidad}
+              </h2>
+              <div className="specialty-section__professionals">
+                {specialtyGroup.profesionales.map((professional) => (
+                  <div key={professional.id} className="professional-item">
+                    <span className="professional-item__name">
+                      {formatProfessionalName(professional)}
+                    </span>
+                    <div className="professional-item__icon">📞</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          )}
+          ))}
         </div>
-      </motion.main>
-
-      <motion.footer
-        className="professional-board__footer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5, delay: 1 }}
-      >
-        <div className="container">
-          <p>
-            Total de profesionales: {professionals.length} | Mostrando:{" "}
-            {filteredProfessionals.length}
-          </p>
-        </div>
-      </motion.footer>
+      </main>
     </div>
   );
 };

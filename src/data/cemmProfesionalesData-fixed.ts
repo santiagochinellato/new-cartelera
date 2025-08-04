@@ -1,30 +1,5 @@
 import type { Professional } from "../types";
 
-// Importar todas las imágenes de profesionales
-import imgCarbello from "../assets/images/fotos-fondo-modificado/carbello.jpg";
-import imgCastello from "../assets/images/fotos-fondo-modificado/castello.jpg";
-import imgDonoso from "../assets/images/fotos-fondo-modificado/donoso.jpg";
-import imgLoza from "../assets/images/fotos-fondo-modificado/loza.jpg";
-import imgMacDermott from "../assets/images/fotos-fondo-modificado/macdermott.jpg";
-import imgMarinaRomero from "../assets/images/fotos-fondo-modificado/marina-romero.jpg";
-import imgNofal from "../assets/images/fotos-fondo-modificado/nofal.jpg";
-import imgRivera from "../assets/images/fotos-fondo-modificado/rivera.jpg";
-import imgRomairone from "../assets/images/fotos-fondo-modificado/romairone.jpg";
-import imgSinPersona from "../assets/images/fotos-fondo-modificado/sin-persona.jpg";
-import imgVega from "../assets/images/fotos-fondo-modificado/vega.jpg";
-import imgApolo from "../assets/images/fotos-fondo-modificado/APOLO.jpg";
-import imgAladino from "../assets/images/fotos-fondo-modificado/aladino.png";
-import imgCarulla from "../assets/images/fotos-fondo-modificado/CARULLA.jpg";
-import imgChocconi from "../assets/images/fotos-fondo-modificado/chiocconi.jpg";
-import imgGonzalez from "../assets/images/fotos-fondo-modificado/GONZALEZ.jpg";
-import imgGrigera from "../assets/images/fotos-fondo-modificado/GRIGERA.jpg";
-import imgGil from "../assets/images/fotos-fondo-modificado/gil.jpg";
-import imgBereau from "../assets/images/fotos-fondo-modificado/bereau.jpg";
-import imgDelRio from "../assets/images/fotos-fondo-modificado/delrio.png";
-import imgMunoz from "../assets/images/fotos-fondo-modificado/munoz.png";
-import imgAlvarez from "../assets/images/fotos-fondo-modificado/alvarez.png";
-import imgOlguin from "../assets/images/fotos-fondo-modificado/olguin.png";
-
 export const cemmProfesionalesData: Professional[] = [
   {
     id: 1,
@@ -33,8 +8,8 @@ export const cemmProfesionalesData: Professional[] = [
     titulo: "Dra.",
     genero: "femenino",
     centro: "ambos",
-    matricula: "7022 ",
-    imagen: imgMarinaRomero,
+    matricula: "",
+    imagen: "imgMarinaRomero",
     imageAlt: "Dra. Marina Romero Villafañe",
   },
   {
@@ -45,7 +20,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "endo",
     matricula: "2778",
-    imagen: imgOlguin,
+    imagen: "imgOlguin",
     imageAlt: "Dr. Santiago Olguin",
   },
   {
@@ -56,7 +31,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "endo",
     matricula: "4566",
-    imagen: imgAlvarez,
+    imagen: "imgAlvarez",
     imageAlt: "Dr. Ariel Alvarez",
   },
   {
@@ -67,7 +42,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "endo",
     matricula: "7539",
-    imagen: imgBereau,
+    imagen: "imgBereau",
     imageAlt: "Dra. Valeria Bereau",
   },
   {
@@ -78,7 +53,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "endo",
     matricula: "5099",
-    imagen: imgChocconi,
+    imagen: "imgChocconi",
     imageAlt: "Dr. Luis Chocconi",
   },
   {
@@ -89,7 +64,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "ambos",
     matricula: "5647",
-    imagen: imgLoza,
+    imagen: "imgLoza",
     imageAlt: "Dr. Pablo Loza",
   },
   {
@@ -100,7 +75,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "endo",
     matricula: "6146",
-    imagen: imgCarulla,
+    imagen: "imgCarulla",
     imageAlt: "Dr. Diego Carulla",
   },
   {
@@ -111,7 +86,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "endo",
     matricula: "6215",
-    imagen: imgRivera,
+    imagen: "imgRivera",
     imageAlt: "Dr. Arturo López Rivera",
   },
   {
@@ -122,7 +97,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "ambos",
     matricula: "7030",
-    imagen: imgDonoso,
+    imagen: "imgDonoso",
     imageAlt: "Dra. Marina Donoso",
   },
   {
@@ -133,7 +108,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "cemm",
     matricula: "2719",
-    imagen: imgDelRio,
+    imagen: "imgDelRio",
     imageAlt: "Dra. Valeria Del Río",
   },
   {
@@ -144,7 +119,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "ambos",
     matricula: "7924",
-    imagen: imgMacDermott,
+    imagen: "imgMacDermott",
     imageAlt: "Dra. Maggie Mac Dermott",
   },
   {
@@ -155,7 +130,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "ambos",
     matricula: "4784",
-    imagen: imgNofal,
+    imagen: "imgNofal",
     imageAlt: "Dra. Teresa Nofal",
   },
   {
@@ -166,7 +141,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "endo",
     matricula: "5712",
-    imagen: imgGonzalez,
+    imagen: "imgGonzalez",
     imageAlt: "Dra. Daniela González",
   },
   {
@@ -177,7 +152,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "cemm",
     matricula: "1495",
-    imagen: imgRomairone,
+    imagen: "imgRomairone",
     imageAlt: "Dr. Jorge Romairone",
   },
   {
@@ -188,7 +163,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "ambos",
     matricula: "1830",
-    imagen: imgVega,
+    imagen: "imgVega",
     imageAlt: "Dra. Susana Vega",
   },
   {
@@ -199,7 +174,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "ambos",
     matricula: "6009",
-    imagen: imgCastello,
+    imagen: "imgCastello",
     imageAlt: "Dra. María Celia Castello",
   },
   {
@@ -210,7 +185,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "endo",
     matricula: "8214",
-    imagen: imgGrigera,
+    imagen: "imgGrigera",
     imageAlt: "Dra. Nadia Grigera",
   },
   {
@@ -221,7 +196,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "endo",
     matricula: "9746",
-    imagen: imgApolo,
+    imagen: "imgApolo",
     imageAlt: "Dr. José Apolo",
   },
   {
@@ -232,7 +207,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "masculino",
     centro: "cemm",
     matricula: "9746",
-    imagen: imgSinPersona,
+    imagen: "imgSinPersona",
     imageAlt: "Dr. Sergio Lindenbaum",
   },
   {
@@ -243,7 +218,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "ambos",
     matricula: "4271",
-    imagen: imgGil,
+    imagen: "imgGil",
     imageAlt: "Lic. María Alejandra Gil",
   },
   {
@@ -254,7 +229,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "ambos",
     matricula: "7086",
-    imagen: imgMunoz,
+    imagen: "imgMunoz",
     imageAlt: "Lic. Tania Muñoz",
   },
   {
@@ -265,7 +240,7 @@ export const cemmProfesionalesData: Professional[] = [
     genero: "femenino",
     centro: "ambos",
     matricula: "352",
-    imagen: imgAladino,
+    imagen: "imgAladino",
     imageAlt: "Lic. Cecilia Aladino",
   },
 ];

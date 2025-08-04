@@ -1,11 +1,10 @@
-import ProfessionalBoard from "./components/ProfessionalBoard";
-import { cemmProfesionalesData } from "./data/cemmProfesionalesData";
+import DualCenter from "./components/DualCenter";
 import "./styles/globals.scss";
 
 function App() {
   return (
     <div className="app">
-      <ProfessionalBoard professionals={cemmProfesionalesData} />
+      <DualCenter />
     </div>
   );
 }

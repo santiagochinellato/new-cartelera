@@ -1,0 +1,211 @@
+@import "../styles/variables";
+
+.professional-board {
+  min-height: 100vh;
+  background-color: var(--background-color, #f5f5f5);
+  color: var(--text-color, #333);
+
+  // Header con logo y datos de contacto
+  &__header {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(135deg, #2c5aa0, #3d71cc);
+    color: white;
+    padding: clamp(0.8rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: bold;
+
+    &-image {
+      height: clamp(2.5rem, 6vw, 4rem);
+      width: auto;
+      margin-right: 1rem;
+    }
+
+    &-fallback {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: bold;
+      color: white;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-align: right;
+
+    @media (max-width: 768px) {
+      text-align: center;
+    }
+
+    &-text {
+      font-size: clamp(0.7rem, 1.8vw, 1rem);
+      opacity: 0.95;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+  }
+
+  // Contenido principal
+  &__main {
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  // Grid de especialidades usando Flexbox
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 3vw, 2rem);
+    // max-width: 1400px;
+    margin: 0 auto;
+
+    // Responsive: 2 columnas en escritorio, 1 en móvil
+    .specialty-section {
+      flex: 1 1 calc(50% - 0.75rem);
+      min-width: 300px;
+
+      @media (max-width: 768px) {
+        flex: 1 1 100%;
+        min-width: unset;
+      }
+    }
+  }
+}
+
+// Sección de especialidad
+.specialty-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  // Encabezado de especialidad (fondo celeste)
+  &__title {
+    background: linear-gradient(135deg, #64b5f6, #2196f3);
+    color: white;
+    padding: clamp(0.8rem, 2vw, 1.2rem);
+    margin: 0;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  // Container de profesionales
+  &__professionals {
+    padding: clamp(0.8rem, 2vw, 1.2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+// Item individual de profesional
+.professional-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(0.6rem, 1.5vw, 0.8rem);
+  background: #f8f9fa;
+  border-left: 4px solid #2196f3;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #e3f2fd;
+    border-left-color: #1976d2;
+    transform: translateX(4px);
+  }
+
+  &__name {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    color: #2c5aa0;
+    font-weight: 500;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  &__icon {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    margin-left: 0.5rem;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Responsive ajustes adicionales
+@media (max-width: 480px) {
+  .professional-board {
+    &__header {
+      padding: 1rem;
+    }
+
+    &__main {
+      padding: 1rem;
+    }
+
+    &__grid {
+      gap: 1rem;
+    }
+  }
+
+  .specialty-section {
+    &__title {
+      padding: 0.8rem;
+      font-size: 1rem;
+    }
+
+    &__professionals {
+      padding: 0.8rem;
+    }
+  }
+
+  .professional-item {
+    padding: 0.3rem;
+
+    &__name {
+      font-size: 0.9rem;
+    }
+
+    &__icon {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Para pantallas muy grandes
+@media (min-width: 1600px) {
+  .professional-board__grid {
+    .specialty-section {
+      flex: 1 1 calc(33.333% - 1.5rem); // 3 columnas en pantallas muy grandes
+    }
+  }
+}
