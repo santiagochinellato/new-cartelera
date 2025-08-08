@@ -148,7 +148,7 @@ body {
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   break-inside: avoid; // Evita que se rompa entre columnas
-  margin-bottom: clamp(0.54rem, 1.68vw, 0.68rem);
+  // margin-bottom: clamp(0.54rem, 1.68vw, 0.68rem);
   width: 100%;
   display: inline-block; // Importante para CSS columns
 
@@ -161,7 +161,7 @@ body {
   &__title {
     background: linear-gradient(135deg, #64b5f6, #2196f3);
     color: white;
-    padding: clamp(0.54rem, 1.36vw, 0.82rem);
+    padding: clamp(0.25rem, 1vw, 0.4rem);
     margin: 0;
     font-size: clamp(0.68rem, 1.7vw, 0.85rem);
     font-weight: 600;

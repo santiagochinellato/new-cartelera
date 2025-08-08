@@ -54,8 +54,8 @@ const DualCenter: React.FC = () => {
       style={{ cursor: "pointer" }}
     >
       {/* Indicador de centro activo */}
-      <div className="dual-center__indicator">
-        {/* <div
+      {/* <div className="dual-center__indicator">
+        <div
           className={`dual-center__indicator-dot ${
             activeCenter === "cemm" ? "active" : ""
           }`}
@@ -68,8 +68,8 @@ const DualCenter: React.FC = () => {
           }`}
         >
           Endo Bariloche
-        </div> */}
-      </div>
+        </div>
+      </div> */}
 
       {/* Contenido de la cartelera activa con animación */}
       <div
