@@ -1,85 +1,73 @@
-// Prevenir scroll horizontal globalmente
+// Prevenir scroll globalmente
 * {
   box-sizing: border-box;
 }
 
 html,
 body {
-  overflow-x: hidden;
+  overflow: hidden;
   max-width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .single-center {
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f5f5f5;
   color: #333;
   width: 100%;
   max-width: 100vw;
-  overflow-x: hidden; // Prevenir scroll horizontal
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
   // Diferentes colores por centro
   &--cemm {
-    --primary-color: #6ac2bf;
+    --primary-color: #4da9a6; // Darkened from #6ac2bf (reduced brightness ~25%)
   }
 
   &--endo {
     --primary-color: #08436f;
   }
 
-  // Header con logo y datos de contacto
+  // Header compacto
   &__header {
-    position: sticky;
-    top: 0;
+    flex-shrink: 0;
     background: var(--primary-color);
     color: white;
-    padding: clamp(0.6rem, 1.8vw, 1.2rem) clamp(0.8rem, 2vw, 1.5rem);
+    padding: 0.4rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     z-index: 100;
-    flex-wrap: wrap;
-    gap: clamp(0.4rem, 1.5vw, 0.8rem);
-    width: 100%;
-    box-sizing: border-box;
+    gap: 0.5rem;
 
     @media (max-width: 768px) {
       flex-direction: column;
-      text-align: center;
-      padding: clamp(0.8rem, 2vw, 1rem);
+      padding: 0.5rem;
     }
   }
 
   &__logo {
     display: flex;
     align-items: center;
-    font-size: clamp(1rem, 3vw, 2rem);
-    font-weight: bold;
-    flex-shrink: 1;
-    min-width: 0; // Permite que se comprima si es necesario
 
     &-image {
-      height: clamp(1.8rem, 4.5vw, 3.5rem);
+      height: 2rem;
       width: auto;
-      margin-right: clamp(0.4rem, 1.5vw, 0.8rem);
       object-fit: contain;
-      max-width: clamp(5rem, 16vw, 14rem);
-      flex-shrink: 0;
+      max-width: 12rem;
 
-      // Ajustes específicos para cada logo según su aspect ratio
-      .single-center--cemm & {
-        // Logo CEMM: 1282x327 (ratio ~3.92:1)
-        max-width: clamp(6rem, 18vw, 16rem);
-      }
-
-      .single-center--endo & {
-        // Logo Endo: 1509x330 (ratio ~4.57:1)
-        max-width: clamp(7rem, 20vw, 18rem);
+      @media (min-width: 1920px) {
+        height: 2.5rem;
+        max-width: 14rem;
       }
     }
 
     &-fallback {
-      font-size: clamp(1rem, 3vw, 2rem);
+      font-size: 1.5rem;
       font-weight: bold;
       color: white;
     }
@@ -88,70 +76,56 @@ body {
   &__info {
     display: flex;
     flex-direction: column;
-    gap: clamp(0.15rem, 0.6vw, 0.25rem);
+    gap: 0.1rem;
     text-align: right;
-    flex-shrink: 1;
-    min-width: 0; // Permite que se comprima
-    max-width: 45%; // Reducido para evitar overflow
 
     @media (max-width: 768px) {
       text-align: center;
-      max-width: 100%;
     }
 
     &-text {
-      font-size: clamp(0.55rem, 1.4vw, 0.85rem);
+      font-size: 0.65rem;
       opacity: 0.95;
-      line-height: 1.2;
+      line-height: 1.1;
       font-weight: 500;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      hyphens: auto;
+
+      @media (min-width: 1920px) {
+        font-size: 0.75rem;
+      }
     }
   }
 
   // Contenido principal
   &__main {
-    padding: clamp(0.3rem, 1vw, 1rem);
+    flex: 1;
+    padding: 0.4rem;
     width: 100%;
-    box-sizing: border-box;
+    overflow: hidden;
+    min-height: 0;
   }
 
-  // Grid de especialidades usando CSS Columns para layout masonry perfecto
+  // Grid usando columnas CSS
   &__grid {
-    columns: 1;
-    column-gap: clamp(0.8rem, 2.5vw, 2rem);
-    column-fill: balance;
-    margin: 0 auto;
+    columns: 5;
+    column-gap: 0.6rem;
+    height: 100%;
     width: 100%;
-    box-sizing: border-box;
 
-    // En escritorio: 2 columnas
-    @media (min-width: 769px) {
-      columns: 2;
+    @media (min-width: 1600px) {
+      columns: 6;
+      column-gap: 0.7rem;
     }
 
-    // En pantallas muy grandes: 3 columnas
-    @media (min-width: 1600px) {
+    @media (max-width: 1400px) {
       columns: 4;
     }
 
-    // Fallback para navegadores que no soportan columns
-    @supports not (columns: 1) {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      align-content: flex-start;
-      max-height: 200vh;
+    @media (max-width: 1200px) {
+      columns: 3;
+    }
 
-      @media (min-width: 769px) {
-        max-height: 150vh;
-      }
-
-      @media (max-width: 768px) {
-        flex-wrap: nowrap;
-        max-height: none;
-      }
+    @media (max-width: 768px) {
+      columns: 2;
     }
   }
 }
@@ -159,40 +133,44 @@ body {
 // Sección de especialidad
 .specialty-section {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  break-inside: avoid; // Evita que se rompa entre columnas
-  margin-bottom: clamp(0.5singrem, 2.5vw, 0.5rem);
+  break-inside: avoid;
+  margin-bottom: 0.5rem;
+  display: inline-block;
   width: 100%;
-  display: inline-block; // Importante para CSS columns
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   }
 
-  // Encabezado de especialidad (fondo celeste)
   &__title {
     background: var(--primary-color);
     color: white;
-    padding: clamp(0.3rem, 1vw, 0.3rem);
+    padding: 0.4rem 0.6rem;
     margin: 0;
-    font-size: clamp(1.2rem, 2.4vw, 1.4rem);
+    font-size: 0.9rem;
     font-weight: 600;
     text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+
+    @media (min-width: 1920px) {
+      font-size: 1rem;
+      padding: 0.5rem 0.7rem;
+    }
   }
 
-  // Container de profesionales
   &__professionals {
-    padding: clamp(0.8rem, 2vw, 0.8rem);
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem;
+
+    @media (min-width: 1920px) {
+      padding: 0.6rem;
+      gap: 0.5rem;
+    }
   }
 }
 
@@ -201,73 +179,91 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: clamp(0.3rem, 1.4vw, 0.8rem);
+  padding: 0.4rem 0.5rem;
   background: #f8f9fa;
-  border-left: 4px solid var(--primary-color);
-  border-radius: 8px;
+  border-left: 3px solid var(--primary-color);
+  border-radius: 5px;
   transition: all 0.2s ease;
-  gap: clamp(0.5rem, 2vw, 1rem);
-  width: 100%;
-  box-sizing: border-box;
+  gap: 0.5rem;
 
   &:hover {
     background: #e3f2fd;
-    border-left-color: var(--primary-color);
-    transform: translateX(4px);
+    transform: translateX(2px);
   }
 
   &__details {
     display: flex;
     align-items: center;
-    gap: clamp(0.6rem, 1.8vw, 1rem);
+    gap: 0.6rem;
     flex: 1;
-    min-width: 0; // Permite que se comprima
+    min-width: 0;
   }
 
   &__photo {
-    width: clamp(2.2rem, 6vw, 4rem);
-    height: clamp(2.2rem, 6vw, 4rem);
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     object-fit: cover;
     object-position: center top;
     border: 2px solid var(--primary-color);
     flex-shrink: 0;
+
+    @media (min-width: 1920px) {
+      width: 2.8rem;
+      height: 2.8rem;
+    }
   }
 
   &__info {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.1rem;
     flex: 1;
-    min-width: 0; // Para permitir text overflow
+    min-width: 0;
   }
 
   &__name {
-    font-size: clamp(0.8rem, 2vw, 1.5rem);
-    color: var(--primary-color);
-    font-weight: 400;
-    line-height: 1.3;
+    font-size: 0.85rem;
+    color: #0d7d7a; // Darkened from primary color for better contrast
+    font-weight: 600;
+    line-height: 1.2;
     margin: 0;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); // Subtle shadow for better readability
+
+    .single-center--cemm & {
+      color: #4da9a6; // Slightly darker turquoise for CEMM
+    }
+
+    .single-center--endo & {
+      color: #063556; // Slightly darker blue for Endo
+    }
+
+    @media (min-width: 1920px) {
+      font-size: 0.95rem;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
   }
 
   &__matricula {
-    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
-    color: #666;
+    font-size: 0.7rem;
+    color: #555; // Darkened from #666 for better readability
     margin: 0;
     font-weight: 500;
-    opacity: 0.8;
-    white-space: nowrap;
+    opacity: 0.9; // Increased from 0.85
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+
+    @media (min-width: 1920px) {
+      font-size: 0.8rem;
+    }
   }
 
   &__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 0.5rem;
     opacity: 0.7;
-    transition: opacity 0.2s ease;
     flex-shrink: 0;
 
     &:hover {
@@ -276,79 +272,18 @@ body {
   }
 
   &__isologo {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     object-fit: contain;
     opacity: 0.8;
-    transition: opacity 0.2s ease;
 
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
-
-// Responsive ajustes adicionales
-@media (max-width: 480px) {
-  .single-center {
-    &__header {
-      padding: 1rem;
-    }
-
-    &__main {
-      padding: 1rem;
-    }
-
-    &__grid {
-      gap: 1rem;
-    }
-  }
-
-  .specialty-section {
-    &__title {
-      padding: 0.8rem;
-      font-size: 1rem;
-    }
-
-    &__professionals {
-      padding: 0.8rem;
-    }
-  }
-
-  .professional-item {
-    padding: 0.6rem;
-    gap: 0.8rem;
-
-    &__photo {
-      width: 2.5rem;
-      height: 2.5rem;
-    }
-
-    &__info {
-      gap: 0.1rem;
-    }
-
-    &__name {
-      font-size: 0.8rem;
-      line-height: 1.2;
-    }
-
-    &__matricula {
-      font-size: 0.65rem;
-    }
-
-    &__isologo {
+    @media (min-width: 1920px) {
       width: 20px;
       height: 20px;
     }
-  }
-}
 
-// Para pantallas muy grandes
-@media (min-width: 1600px) {
-  .single-center__grid {
-    .specialty-section {
-      flex: 1 1 calc(33.333% - 1.5rem); // 3 columnas en pantallas muy grandes
+    &:hover {
+      opacity: 1;
     }
   }
 }
